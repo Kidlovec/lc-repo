@@ -195,3 +195,6 @@ Temporary Items
 
 *.iml
 leet-code-repo.iml
+
+*~
+.DS_Store
