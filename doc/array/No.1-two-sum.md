@@ -22,7 +22,7 @@
 方法：
 
 1. [暴力双层循环 O(n^2)](../../src/main/java/io/kidlovec/leetcode/twoSum/Solution1.java)
-2. [map O(n)]()(../../src/main/java/io/kidlovec/leetcode/twoSum/Solution2.java)
+2. [map O(n)](../../src/main/java/io/kidlovec/leetcode/twoSum/Solution2.java)
 
 
 ### map
