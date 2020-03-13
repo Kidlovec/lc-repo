@@ -1,6 +1,10 @@
 package io.kidlovec.leetcode.tree.MaxDepth;
 
 import io.kidlovec.leetcode.tree.TreeNode;
+import javafx.util.Pair;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * 给定一个二叉树，找出其最大深度。
@@ -26,27 +30,14 @@ import io.kidlovec.leetcode.tree.TreeNode;
  * @author kidlovec
  * @date 2020-01-20
  */
-public class Solution {
+public class Solution3 {
 
     /**
-     * 递归: 深度优先遍历
+     * 递归: 广度优先遍历
      *
      * <ul>
-     * <li>
-     * 时间复杂度：
-     * <pre>
-     * 我们每个结点只访问一次，
-     * 因此时间复杂度为 O(N)，其中 N 是结点的数量。
-     * </pre>
-     * </li>
-     * <li>
-     * 空间复杂度：
-     * <pre>
-     * 在最糟糕的情况下，树是完全不平衡的，例如每个结点只剩下左子结点，递归将会被调用 N 次（树的高度），因此保持调用栈的存储将是 O(N)。
-     *
-     * 但在最好的情况下（树是完全平衡的），树的高度将是log(N)。因此，在这种情况下的空间复杂度将是 O(log(N)。
-     *      <pre>
-     *     </li>
+     * 时间复杂度：O(N)。
+     * 空间复杂度：O(N)。
      * </ul>
      *
      *
@@ -57,11 +48,34 @@ public class Solution {
     public int maxDepth(TreeNode root) {
         if (root == null) {
             return 0;
-        } else {
-            int leftHeight = maxDepth(root.left);
-            int rightHeight = maxDepth(root.right);
-            return Math.max(leftHeight, rightHeight) + 1;
         }
+        Queue<TreeNode> stack = new LinkedList<>();
+        stack.offer(root);
+        int preCount = 1;
+        int pCount = 0;
+
+        int level = 0;
+
+        while (!stack.isEmpty()) {
+            TreeNode temp = stack.poll();
+            preCount--;
+
+            if (temp.left != null) {
+                stack.offer(temp.left);
+                pCount++;
+            }
+            if (temp.right != null) {
+                stack.offer(temp.right);
+                pCount++;
+            }
+
+            if (preCount == 0) {
+                preCount = pCount;
+                pCount = 0;
+                level++;
+            }
+        }
+        return level;
     }
 
     public static void main(String[] args) {
