@@ -1,8 +1,5 @@
 package io.kidlovec.leetcode.majorityElement;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * <pre>
  * 169. 多数元素
@@ -21,7 +18,7 @@ import java.util.Map;
  * 通过次数141,975|提交次数226,434
  *
  *
- * 哈希表
+ * Boyer-Moore 摩尔投票算法
  *
  * 时间复杂度: O(n)
  * 空间复杂度: O(n)
@@ -33,42 +30,42 @@ import java.util.Map;
  * 46.9 MB , 在所有 Java 提交中击败了 5.07% 的用户
  *
  *
+ * 复杂度分析
+ *
+ * 时间复杂度：O(n)。Boyer-Moore 算法只对数组进行了一次遍历。
+ *
+ * 空间复杂度：O(1)。Boyer-Moore 算法只需要常数级别的额外空间。
+ *
+ *
  * </pre>
  *
  * @author kidlovec
  * @date 2020-03-14
  * @since 1.0.0
  */
-public class Solution2 {
-
+public class Solution3 {
 
     public int majorityElement(int[] nums) {
-        Map<Integer, Integer> counter = new HashMap<>(nums.length);
 
-        for (int i = 0; i < nums.length; i++) {
-            int data = nums[i];
-            if (counter.containsKey(data)) {
-                counter.put(data, counter.get(data) + 1);
-            } else {
-                counter.put(data, 1);
-            }
-        }
-
-        int data = 0;
         int count = 0;
-        for (Map.Entry<Integer, Integer> e : counter.entrySet()) {
-            if (e.getValue() > count) {
-                count = e.getValue();
-                data = e.getKey();
+        Integer candidate = null;
+
+        for (int num : nums) {
+            if (count == 0){
+                candidate = num;
             }
+
+            count += (num == candidate) ? 1 : -1;
         }
-        return data;
+
+        return candidate;
     }
+
 
     public static void main(String[] args) {
         int[] array = new int[]{2, 2, 1, 1, 1, 2, 2};
 
-        Solution2 s = new Solution2();
+        Solution3 s = new Solution3();
         final int i = s.majorityElement(array);
 
         System.out.println(i);

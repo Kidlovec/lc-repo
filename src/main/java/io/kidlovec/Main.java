@@ -12,7 +12,13 @@ public class Main {
     public static void main(String[] args) {
         String str;
 //        str = "https://leetcode-cn.com/problems/majority-element/";
-        str = "https://leetcode-cn.com/problems/longest-increasing-subsequence/";
+//        str = "https://leetcode-cn.com/problems/longest-increasing-subsequence/";
+
+//        str = "https://leetcode-cn.com/problems/majority-element-ii/";
+//        str = "https://leetcode-cn.com/problems/longest-increasing-subsequence/";
+//        str = "max-area-of-island";
+
+        str = "https://leetcode-cn.com/problems/longest-palindrome/";
 
         System.out.println(changeName(str));
         System.out.println();

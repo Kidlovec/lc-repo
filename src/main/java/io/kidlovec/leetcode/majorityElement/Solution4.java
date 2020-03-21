@@ -1,8 +1,5 @@
 package io.kidlovec.leetcode.majorityElement;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * <pre>
  * 169. 多数元素
@@ -21,7 +18,7 @@ import java.util.Map;
  * 通过次数141,975|提交次数226,434
  *
  *
- * 哈希表
+ * 分治法
  *
  * 时间复杂度: O(n)
  * 空间复杂度: O(n)
@@ -39,36 +36,51 @@ import java.util.Map;
  * @date 2020-03-14
  * @since 1.0.0
  */
-public class Solution2 {
+public class Solution4 {
 
 
     public int majorityElement(int[] nums) {
-        Map<Integer, Integer> counter = new HashMap<>(nums.length);
 
-        for (int i = 0; i < nums.length; i++) {
-            int data = nums[i];
-            if (counter.containsKey(data)) {
-                counter.put(data, counter.get(data) + 1);
-            } else {
-                counter.put(data, 1);
-            }
-        }
-
-        int data = 0;
-        int count = 0;
-        for (Map.Entry<Integer, Integer> e : counter.entrySet()) {
-            if (e.getValue() > count) {
-                count = e.getValue();
-                data = e.getKey();
-            }
-        }
-        return data;
+        return majorityElement(nums, 0, nums.length - 1);
     }
+
+    private int majorityElement(int[] nums, int start, int end) {
+
+        // base case
+        if (start == end) {
+            return nums[start];
+        }
+
+        int mid = (end - start) / 2 + start;
+        int left = majorityElement(nums, start, mid);
+        int right = majorityElement(nums, mid + 1, end);
+
+        if (left == right) {
+            return left;
+        } else {
+
+            int leftCnt = countInRange(nums, left, start, end);
+            int rightCnt = countInRange(nums, right, start, end);
+
+            return leftCnt > rightCnt ? leftCnt : rightCnt;
+        }
+    }
+
+    private int countInRange(int[] nums, int num, int start, int end) {
+        int count = 0;
+        for (int i = start; i <= end; i++) {
+            if (nums[i] == num) {
+                count++;
+            }
+        }
+        return count;
+    }
+
 
     public static void main(String[] args) {
         int[] array = new int[]{2, 2, 1, 1, 1, 2, 2};
 
-        Solution2 s = new Solution2();
+        Solution4 s = new Solution4();
         final int i = s.majorityElement(array);
 
         System.out.println(i);
