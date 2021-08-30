@@ -18,7 +18,7 @@ public class Main {
 //        str = "https://leetcode-cn.com/problems/longest-increasing-subsequence/";
 //        str = "max-area-of-island";
 
-        str = "https://leetcode-cn.com/problems/longest-palindrome/";
+        str = "https://leetcode-cn.com/problems/median-of-two-sorted-arrays//";
 
         System.out.println(changeName(str));
         System.out.println();
